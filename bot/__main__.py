@@ -1,9 +1,7 @@
 import asyncio
 import logging
 import sys
-import os
 from aiogram import Bot, Dispatcher
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from Configs.config_reader import get_config, BotConfig
 from handlers import get_routers
 
