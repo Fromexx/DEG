@@ -1,0 +1,110 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "sqlite"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id          Int      @id @default(autoincrement())
+    telegramId  BigInt   @unique @map("telegram_id")
+    username    String?
+    fio         String
+    cardNumber  String?  @map("card_number")
+    role        String   @default("participant") // participant | moderator | admin
+    isBanned    Boolean  @default(false) @map("is_banned")
+    isActivated Boolean  @default(false) @map("is_activated")
+    createdAt   DateTime @default(now()) @map("created_at")
+
+    registrations EventRegistration[]
+    votes         Vote[]
+    auditLogs     AuditLog[]
+
+    @@map("users")
+}
+
+model Event {
+    id          Int      @id @default(autoincrement())
+    title       String
+    description String?
+    imageUrl    String?  @map("image_url")
+    place       String?
+    date        DateTime
+    accent      String?  // акцент/приоритет
+    isHidden    Boolean  @default(false) @map("is_hidden")
+    createdById Int?     @map("created_by_id")
+    createdAt   DateTime @default(now()) @map("created_at")
+
+    registrations EventRegistration[]
+
+    @@map("events")
+}
+
+model EventRegistration {
+    id        Int      @id @default(autoincrement())
+    eventId   Int      @map("event_id")
+    userId    Int      @map("user_id")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([eventId, userId])
+    @@map("event_registrations")
+}
+
+model Poll {
+    id        Int      @id @default(autoincrement())
+    title     String
+    type      String   @default("single") // single | multiple
+    isActive  Boolean  @default(true) @map("is_active")
+    deadline  DateTime?
+    createdById Int?   @map("created_by_id")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    options PollOption[]
+    votes   Vote[]
+
+    @@map("polls")
+}
+
+model PollOption {
+    id     Int    @id @default(autoincrement())
+    pollId Int    @map("poll_id")
+    text   String
+    ord    Int    @default(0)
+
+    poll  Poll   @relation(fields: [pollId], references: [id], onDelete: Cascade)
+    votes Vote[]
+
+    @@map("poll_options")
+}
+
+model Vote {
+    id        Int      @id @default(autoincrement())
+    pollId    Int      @map("poll_id")
+    optionId  Int      @map("option_id")
+    userId    Int      @map("user_id")
+    createdAt DateTime @default(now()) @map("created_at")
+
+    poll   Poll       @relation(fields: [pollId], references: [id], onDelete: Cascade)
+    option PollOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+    user   User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([pollId, userId]) // один голос на пользователя
+    @@map("votes")
+}
+
+model AuditLog {
+    id        Int      @id @default(autoincrement())
+    adminId   Int      @map("admin_id")
+    action    String
+    target    String?
+    createdAt DateTime @default(now()) @map("created_at")
+
+    admin User @relation(fields: [adminId], references: [id])
+
+    @@map("audit_logs")
+}
