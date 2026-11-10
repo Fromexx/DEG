@@ -15,6 +15,9 @@
   "type": "commonjs",
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.10.1",
+    "@tma.js/init-data-node": "^2.0.8",
+    "@tma.js/sdk": "^3.3.0",
+    "@tma.js/types": "^1.0.2",
     "cors": "^2.8.6",
     "express": "^5.3.0"
   },
