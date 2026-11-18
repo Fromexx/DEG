@@ -2,8 +2,8 @@ import asyncio
 import logging
 import sys
 from aiogram import Bot, Dispatcher
-from Configs.config_reader import get_config, BotConfig
-from handlers import get_routers
+from bot.Configs.config_reader import get_config, BotConfig
+from bot.handlers import get_routers
 
 bot_config = get_config(model=BotConfig, root_key='bot')
 

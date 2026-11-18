@@ -1,8 +1,8 @@
 from aiogram import F, Router
 from aiogram.filters import Command, CommandObject, Filter
 from aiogram.types import Message
-from Configs.WEB_CONFIG import WEB_APP
-from keyboards.general_keyboard import start_keyboard
+from bot.Configs.WEB_CONFIG import WEB_APP
+from bot.keyboards.general_keyboard import start_keyboard
 
 router = Router()
 
