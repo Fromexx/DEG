@@ -1604,17 +1604,15 @@ export namespace Prisma {
 
   export type UserAvgAggregateOutputType = {
     id: number | null
-    telegramId: number | null
   }
 
   export type UserSumAggregateOutputType = {
     id: number | null
-    telegramId: bigint | null
   }
 
   export type UserMinAggregateOutputType = {
     id: number | null
-    telegramId: bigint | null
+    telegramId: string | null
     username: string | null
     fio: string | null
     cardNumber: string | null
@@ -1626,7 +1624,7 @@ export namespace Prisma {
 
   export type UserMaxAggregateOutputType = {
     id: number | null
-    telegramId: bigint | null
+    telegramId: string | null
     username: string | null
     fio: string | null
     cardNumber: string | null
@@ -1652,12 +1650,10 @@ export namespace Prisma {
 
   export type UserAvgAggregateInputType = {
     id?: true
-    telegramId?: true
   }
 
   export type UserSumAggregateInputType = {
     id?: true
-    telegramId?: true
   }
 
   export type UserMinAggregateInputType = {
@@ -1785,7 +1781,7 @@ export namespace Prisma {
 
   export type UserGroupByOutputType = {
     id: number
-    telegramId: bigint
+    telegramId: string
     username: string | null
     fio: string
     cardNumber: string | null
@@ -1885,7 +1881,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      telegramId: bigint
+      telegramId: string
       username: string | null
       fio: string
       cardNumber: string | null
@@ -2320,7 +2316,7 @@ export namespace Prisma {
    */
   interface UserFieldRefs {
     readonly id: FieldRef<"User", 'Int'>
-    readonly telegramId: FieldRef<"User", 'BigInt'>
+    readonly telegramId: FieldRef<"User", 'String'>
     readonly username: FieldRef<"User", 'String'>
     readonly fio: FieldRef<"User", 'String'>
     readonly cardNumber: FieldRef<"User", 'String'>
@@ -9716,13 +9712,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'BigInt'
-   */
-  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
-    
-
-
-  /**
    * Reference to a field of type 'String'
    */
   export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
@@ -9758,7 +9747,7 @@ export namespace Prisma {
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     id?: IntFilter<"User"> | number
-    telegramId?: BigIntFilter<"User"> | bigint | number
+    telegramId?: StringFilter<"User"> | string
     username?: StringNullableFilter<"User"> | string | null
     fio?: StringFilter<"User"> | string
     cardNumber?: StringNullableFilter<"User"> | string | null
@@ -9788,7 +9777,7 @@ export namespace Prisma {
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
-    telegramId?: bigint | number
+    telegramId?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
@@ -9826,7 +9815,7 @@ export namespace Prisma {
     OR?: UserScalarWhereWithAggregatesInput[]
     NOT?: UserScalarWhereWithAggregatesInput | UserScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"User"> | number
-    telegramId?: BigIntWithAggregatesFilter<"User"> | bigint | number
+    telegramId?: StringWithAggregatesFilter<"User"> | string
     username?: StringNullableWithAggregatesFilter<"User"> | string | null
     fio?: StringWithAggregatesFilter<"User"> | string
     cardNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -10221,7 +10210,7 @@ export namespace Prisma {
   }
 
   export type UserCreateInput = {
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -10236,7 +10225,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateInput = {
     id?: number
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -10250,7 +10239,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateInput = {
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10265,7 +10254,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10280,7 +10269,7 @@ export namespace Prisma {
 
   export type UserCreateManyInput = {
     id?: number
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -10291,7 +10280,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateManyMutationInput = {
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10303,7 +10292,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -10686,15 +10675,18 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type BigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -10709,20 +10701,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type StringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type BoolFilter<$PrismaModel = never> = {
@@ -10790,7 +10768,6 @@ export namespace Prisma {
 
   export type UserAvgOrderByAggregateInput = {
     id?: SortOrder
-    telegramId?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -10819,7 +10796,6 @@ export namespace Prisma {
 
   export type UserSumOrderByAggregateInput = {
     id?: SortOrder
-    telegramId?: SortOrder
   }
 
   export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -10838,20 +10814,21 @@ export namespace Prisma {
     _max?: NestedIntFilter<$PrismaModel>
   }
 
-  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -10869,23 +10846,6 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedStringNullableFilter<$PrismaModel>
     _max?: NestedStringNullableFilter<$PrismaModel>
-  }
-
-  export type StringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -11271,20 +11231,12 @@ export namespace Prisma {
     connect?: AuditLogWhereUniqueInput | AuditLogWhereUniqueInput[]
   }
 
-  export type BigIntFieldUpdateOperationsInput = {
-    set?: bigint | number
-    increment?: bigint | number
-    decrement?: bigint | number
-    multiply?: bigint | number
-    divide?: bigint | number
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
     set?: string | null
-  }
-
-  export type StringFieldUpdateOperationsInput = {
-    set?: string
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -11676,15 +11628,18 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type NestedBigIntFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedStringNullableFilter<$PrismaModel = never> = {
@@ -11699,20 +11654,6 @@ export namespace Prisma {
     startsWith?: string | StringFieldRefInput<$PrismaModel>
     endsWith?: string | StringFieldRefInput<$PrismaModel>
     not?: NestedStringNullableFilter<$PrismaModel> | string | null
-  }
-
-  export type NestedStringFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringFilter<$PrismaModel> | string
   }
 
   export type NestedBoolFilter<$PrismaModel = never> = {
@@ -11758,20 +11699,21 @@ export namespace Prisma {
     not?: NestedFloatFilter<$PrismaModel> | number
   }
 
-  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    in?: bigint[] | number[]
-    notIn?: bigint[] | number[]
-    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
-    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[]
+    notIn?: string[]
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
     _count?: NestedIntFilter<$PrismaModel>
-    _avg?: NestedFloatFilter<$PrismaModel>
-    _sum?: NestedBigIntFilter<$PrismaModel>
-    _min?: NestedBigIntFilter<$PrismaModel>
-    _max?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -11800,23 +11742,6 @@ export namespace Prisma {
     gt?: number | IntFieldRefInput<$PrismaModel>
     gte?: number | IntFieldRefInput<$PrismaModel>
     not?: NestedIntNullableFilter<$PrismaModel> | number | null
-  }
-
-  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: string | StringFieldRefInput<$PrismaModel>
-    in?: string[]
-    notIn?: string[]
-    lt?: string | StringFieldRefInput<$PrismaModel>
-    lte?: string | StringFieldRefInput<$PrismaModel>
-    gt?: string | StringFieldRefInput<$PrismaModel>
-    gte?: string | StringFieldRefInput<$PrismaModel>
-    contains?: string | StringFieldRefInput<$PrismaModel>
-    startsWith?: string | StringFieldRefInput<$PrismaModel>
-    endsWith?: string | StringFieldRefInput<$PrismaModel>
-    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedStringFilter<$PrismaModel>
-    _max?: NestedStringFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -12104,7 +12029,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutRegistrationsInput = {
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12118,7 +12043,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutRegistrationsInput = {
     id?: number
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12183,7 +12108,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutRegistrationsInput = {
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12197,7 +12122,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutRegistrationsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12436,7 +12361,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutVotesInput = {
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12450,7 +12375,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutVotesInput = {
     id?: number
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12535,7 +12460,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutVotesInput = {
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12549,7 +12474,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutVotesInput = {
     id?: IntFieldUpdateOperationsInput | number
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12562,7 +12487,7 @@ export namespace Prisma {
   }
 
   export type UserCreateWithoutAuditLogsInput = {
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12576,7 +12501,7 @@ export namespace Prisma {
 
   export type UserUncheckedCreateWithoutAuditLogsInput = {
     id?: number
-    telegramId: bigint | number
+    telegramId: string
     username?: string | null
     fio: string
     cardNumber?: string | null
@@ -12605,7 +12530,7 @@ export namespace Prisma {
   }
 
   export type UserUpdateWithoutAuditLogsInput = {
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null
@@ -12619,7 +12544,7 @@ export namespace Prisma {
 
   export type UserUncheckedUpdateWithoutAuditLogsInput = {
     id?: IntFieldUpdateOperationsInput | number
-    telegramId?: BigIntFieldUpdateOperationsInput | bigint | number
+    telegramId?: StringFieldUpdateOperationsInput | string
     username?: NullableStringFieldUpdateOperationsInput | string | null
     fio?: StringFieldUpdateOperationsInput | string
     cardNumber?: NullableStringFieldUpdateOperationsInput | string | null

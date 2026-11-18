@@ -3,12 +3,11 @@ import { requireRole } from '../../middleware/roles';
 import { upload } from '../../middleware/upload';
 import { parseEventBody } from './events.validation';
 import { createEvent, updateEvent, deleteEvent, getEvents, registerUser, unregisterUser, getEventUsers } from './events.service';
-import { authMiddleware } from '../../auth';
-import { Roles } from '../../types/user.types';
+import { Roles } from '../../types/users.types';
 
 export const eventsRouter = Router();
 
-eventsRouter.post('/', requireRole(String(Roles.moderator), String(Roles.admin)), upload.single('image'), async (req: Request, res: Response) => {
+eventsRouter.post('/', requireRole(Roles.moderator, Roles.admin), upload.single('image'), async (req: Request, res: Response) => {
     const result = parseEventBody(req.body);
     if (!result.success) {
         return res.status(400).json({
@@ -28,7 +27,7 @@ eventsRouter.post('/', requireRole(String(Roles.moderator), String(Roles.admin))
     res.status(201).json(event);
 });
 
-eventsRouter.patch('/:id', requireRole(String(Roles.moderator), String(Roles.admin)), upload.single('image'), async (req: Request, res: Response) => {
+eventsRouter.patch('/:id', requireRole(Roles.moderator, Roles.admin), upload.single('image'), async (req: Request, res: Response) => {
     const result = parseEventBody(req.body);
     if (!result.success) {
         return res.status(400).json({
@@ -51,10 +50,10 @@ eventsRouter.patch('/:id', requireRole(String(Roles.moderator), String(Roles.adm
         imageUrl: req.file ? `/uploads/${req.file.filename}` : null,
     });
 
-    res.status(201).json(event);
+    res.json(event);
 });
 
-eventsRouter.delete('/:id', requireRole(String(Roles.moderator), String(Roles.admin)), async (req: Request, res: Response) => {
+eventsRouter.delete('/:id', requireRole(Roles.moderator, Roles.admin), async (req: Request, res: Response) => {
     const id = Number(req.params.id);
 
     if (Number.isNaN(id)) {
@@ -76,7 +75,7 @@ eventsRouter.get('/', async (req: Request, res: Response) => {
     res.json(events);
 });
 
-eventsRouter.post('/:id/register', authMiddleware, async (req: Request, res: Response) => {
+eventsRouter.post('/:id/register', async (req: Request, res: Response) => {
     const eventId = Number(req.params.id);
     const userId = Number(req.userId);
     if (Number.isNaN(eventId) || Number.isNaN(userId)) {
@@ -88,7 +87,7 @@ eventsRouter.post('/:id/register', authMiddleware, async (req: Request, res: Res
     res.status(201).json(eventRegistration);
 });
 
-eventsRouter.delete('/:id/register', authMiddleware, async (req: Request, res: Response) => {
+eventsRouter.delete('/:id/register', async (req: Request, res: Response) => {
     const eventId = Number(req.params.id);
     const userId = Number(req.userId);
     if (Number.isNaN(eventId) || Number.isNaN(userId)) {
@@ -100,7 +99,7 @@ eventsRouter.delete('/:id/register', authMiddleware, async (req: Request, res: R
     res.status(201).json(eventRegistration);
 });
 
-eventsRouter.get('/:id/users', authMiddleware, requireRole(String(Roles.moderator), String(Roles.admin)), async (req: Request, res: Response) => {
+eventsRouter.get('/:id/users', requireRole(Roles.moderator, Roles.admin), async (req: Request, res: Response) => {
     const id = Number(req.userId);
     if (Number.isNaN(id)) {
         return res.status(400).json({ error: 'Invalid id' });

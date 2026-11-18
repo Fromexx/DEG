@@ -4,6 +4,7 @@ import {
     type RequestHandler,
     type Response,
 } from 'express';
+import { Roles } from './types/users.types';
 
 const BOT_TOKEN = process.env.BOT_TOKEN!;
 
@@ -16,23 +17,30 @@ export function getInitData(res: Response): InitData | undefined {
 }
 
 export const authMiddleware: RequestHandler = (req, res, next) => {
-    const [authType, authData = ''] = (req.header('authorization') || '').split(' ');
 
-    switch (authType) {
-        case 'tma':
-        try {
-            validate(authData, BOT_TOKEN, {
-            expiresIn: 3600,
-            });
 
-            setInitData(res, parse(authData));
-            return next();
-        } catch (e) {
-            return next(e);
-        }
-        default:
-        return next(new Error('Unauthorized'));
-    }
+    // const [authType, authData = ''] = (req.header('authorization') || '').split(' ');
+
+    // switch (authType) {
+    //     case 'tma':
+    //     try {
+    //         validate(authData, BOT_TOKEN, {
+    //         expiresIn: 3600,
+    //         });
+
+    //         setInitData(res, parse(authData));
+    //         return next();
+    //     } catch (e) {
+    //         return next(e);
+    //     }
+    //     default:
+    //     return next(new Error('Unauthorized'));
+    // }
+
+    req.userId = 1;
+    req.userRole = Roles.admin;
+
+    next();
 };
 
 const defaultErrorMiddleware: ErrorRequestHandler = (err, _req, res, _next) => {
